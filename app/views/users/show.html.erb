@@ -1,0 +1,9 @@
+<%= @user.full_name %>
+
+<ul>
+  <li><%= link_to "Editar", edit_user_path(@user) %></li>
+  <li><%= link_to "Eliminar", user_path(@user), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Estas seguro?"
+                  } %></li>
+</ul>

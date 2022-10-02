@@ -5,9 +5,8 @@ class CreateUsers < ActiveRecord::Migration[7.0]
     create_table :users, id: :uuid do |t|
       t.string :first_name, null: false
       t.string :last_name, null: false
-      t.string :email, null: false, unique: true
-      t.datetime :birth_date, null: false
-      t.boolean :removed, null: false, default: false, index: true
+      t.string :email, null: false, index: { unique: true }
+      t.date :birth_date, null: false
       t.timestamps
     end
   end
