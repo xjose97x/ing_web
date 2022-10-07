@@ -1,24 +1,40 @@
-# README
+# Proyecto Ingenieria Web
+## Por: José I. Escudero
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Servicios requeridos
++ Postgres
 
-Things you may want to cover:
+## Configuración
+### Ruby
+Hay varias formas de instalar Ruby en el sistema. Se recomienda usar un administrador de versiones de Ruby como RVM, rbenv, chruby, asdf, etc.
+Encontrará la versión de Ruby requerida en `.ruby-version`.
 
-* Ruby version
+### Bundler
+Bundler es una manera de prevenir el infierno de dependencias y garantiza que los gems que se necesitan estén presentes en el ambiente de desarrollo, de pruebas y la producción.
+Para instalarlo ejecute: `gem install bundler -v 2.2.26`
 
-* System dependencies
+### Instalar dependencias
+* Simplemente ejecute `bundle`
 
-* Configuration
+### Base de datos
+Se puede crear una base de datos nueva (vacía) con los siguientes comandos:
+* Crear base de datos: `rails db:create`
+* Cargar esquemas: `rails db:schema:load`
 
-* Database creation
+Recuerda ejecutar las migraciones ejecutando `rails db:migrate` 
 
-* Database initialization
+## ¿Como ejecutar el proyecto?
 
-* How to run the test suite
+* Rails server: `rails s`
 
-* Services (job queues, cache servers, search engines, etc.)
+## Migraciones
 
-* Deployment instructions
+* Generar migratción: `rails generate migration <name>`
+* Ejecutar migración: `rails db:migrate`
 
-* ...
+(https://guides.rubyonrails.org/active_record_migrations.html)
+
+## Comandos útiles
+* Listar endpoints: `rails routes`
+* Rails console: `rails c`
+* Rubocop (style check): `rubocop -a`
