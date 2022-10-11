@@ -9,6 +9,15 @@
   </head>
 
   <body>
+    <% if user_signed_in? %>
+      <%= button_to(
+        "Log Out",
+        log_out_path,
+        method: :get
+      ) %>
+    <% end %>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
     <%= yield %>
     <%= turbo_include_tags %>
   </body>
