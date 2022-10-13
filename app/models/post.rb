@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: posts
@@ -22,6 +24,6 @@
 #  fk_rails_...  (category_id => categories.id)
 #
 class Post < ApplicationRecord
-    belongs_to :category
-    has_and_belongs_to_many :tags
+  belongs_to :category
+  has_and_belongs_to_many :tags
 end

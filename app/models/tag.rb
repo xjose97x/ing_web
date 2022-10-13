@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: tags
@@ -9,5 +11,5 @@
 #  updated_at :datetime         not null
 #
 class Tag < ApplicationRecord
-    has_and_belongs_to_many :posts
+  has_and_belongs_to_many :posts
 end

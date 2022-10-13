@@ -97,6 +97,9 @@ Rails:
 Rails/HasManyOrHasOneDependent:
   Enabled: false
 
+Rails/HasAndBelongsToMany:
+  Enabled: false
+
 Rails/InverseOf:
   Enabled: false
 
