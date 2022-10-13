@@ -24,6 +24,7 @@
 #  fk_rails_...  (category_id => categories.id)
 #
 class Post < ApplicationRecord
+  belongs_to :author, class_name: 'User', foreign_key: 'author_id'
   belongs_to :category
   has_and_belongs_to_many :tags
 end
