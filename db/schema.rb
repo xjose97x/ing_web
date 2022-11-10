@@ -23,6 +23,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_011240) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "post_tags", id: false, force: :cascade do |t|
+    t.uuid "post_id", null: false
+    t.bigint "tag_id", null: false
+    t.index ["post_id", "tag_id"], name: "index_post_tags_on_post_id_and_tag_id", unique: true
+    t.index ["post_id"], name: "index_post_tags_on_post_id"
+    t.index ["tag_id"], name: "index_post_tags_on_tag_id"
+  end
+
   create_table "posts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "author_id"
     t.string "title", null: false
@@ -33,11 +41,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_011240) do
     t.datetime "updated_at", null: false
     t.index ["author_id"], name: "index_posts_on_author_id"
     t.index ["category_id"], name: "index_posts_on_category_id"
-  end
-
-  create_table "posts_tags", id: false, force: :cascade do |t|
-    t.bigint "post_id", null: false
-    t.bigint "tag_id", null: false
   end
 
   create_table "tags", force: :cascade do |t|
@@ -70,6 +73,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_011240) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "post_tags", "posts"
+  add_foreign_key "post_tags", "tags"
   add_foreign_key "posts", "categories"
   add_foreign_key "posts", "users", column: "author_id"
 end
