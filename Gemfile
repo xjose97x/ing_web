@@ -55,6 +55,12 @@ gem "sassc-rails"
 
 gem "rails_admin", "~> 3.0"
 
+# For flesch kincaid readability score
+gem "odyssey"
+
+# Grammar, spelling, and style checker
+gem "languagetool"
+
 group :development, :test do
   # Rubocop
   gem "rubocop-performance"
