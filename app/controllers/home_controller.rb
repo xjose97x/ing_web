@@ -3,7 +3,9 @@
 class HomeController < ApplicationController
   skip_before_action :authenticate_user!
 
-  def index; end
+  def index
+    @posts = Post.all.order(final_score: :desc)
+  end
 
   def log_out
     sign_out current_user

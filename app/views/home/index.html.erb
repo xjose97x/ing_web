@@ -26,3 +26,38 @@
         method: :get
       ) %>
 <% end %>
+
+<!-- Table for posts -->
+<% @posts.each do |post| %>
+<% end %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Score</th>
+      <th scope="col">Title</th>
+      <th scope="col">Summary</th>
+      <th scope="col">Author</th>
+      <th scope="col">Category</th>
+      <th scope="col">Tags</th>
+      <th scope="col">Created at</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @posts.each do |post| %>
+      <tr>
+        <th scope="row"><%= post.final_score %></th>
+        <td><a href="#"><%= post.title %></a></td>
+        <td><%= post.summary %></td>
+        <td><a href="#"><%= post.author.full_name %></a></td>
+        <td><a href="#"><%= post.category.title %></a></td>
+        <td>
+          <% post.tags.each do |tag| %>
+            <a href="#" class="badge bg-primary"><%= tag.title %></a>
+          <% end %>
+        </td>
+        <td><%= post.created_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

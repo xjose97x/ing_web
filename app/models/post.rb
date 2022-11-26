@@ -32,6 +32,7 @@ class Post < ApplicationRecord
   has_and_belongs_to_many :tags
   has_and_belongs_to_many :interacted_users, class_name: "User", join_table: :posts_likes
   before_save :set_scores
+  before_save :set_summary
 
   def set_scores
     self.flesch_kincaid_score = LanguageService.FleschKincaidScore(content)
@@ -41,5 +42,10 @@ class Post < ApplicationRecord
     grammar_score = 0 if grammar_score < 0
     likes_score = (interacted_users.length * 10)
     self.final_score = (flesch_kincaid_score * 0.5) + (grammar_score * 0.5) + likes_score
+  end
+
+  def set_summary
+    # first 200 characters of the content
+    self.summary = content[0..200]
   end
 end
