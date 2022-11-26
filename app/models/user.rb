@@ -12,6 +12,7 @@
 #  encrypted_password     :string           default(""), not null
 #  failed_attempts        :integer          default(0), not null
 #  first_name             :string           not null
+#  is_admin               :boolean          default(FALSE), not null
 #  last_name              :string           not null
 #  last_sign_in_at        :datetime
 #  last_sign_in_ip        :string
@@ -33,6 +34,9 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
+
+  has_many :posts, foreign_key: :author_id, dependent: :destroy
+
   validates :first_name, :last_name, :email, :birth_date, presence: true
   validates :email, uniqueness: true
 

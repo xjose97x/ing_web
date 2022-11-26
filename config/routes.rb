@@ -9,5 +9,11 @@ Rails.application.routes.draw do
 
   get "log_out", to: "home#log_out"
 
-  resources :users
+  authenticated :user do
+    resources :users
+  end
+
+  authenticate :user, ->(u) { u.is_admin } do
+    mount RailsAdmin::Engine => "/admin", as: "rails_admin"
+  end
 end
