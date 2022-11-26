@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -12,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_13_011240) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_26_213541) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -31,8 +29,21 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_011240) do
     t.bigint "category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "flesch_kincaid_score"
+    t.jsonb "language_tool_matches"
+    t.float "final_score"
     t.index ["author_id"], name: "index_posts_on_author_id"
     t.index ["category_id"], name: "index_posts_on_category_id"
+  end
+
+  create_table "posts_likes", force: :cascade do |t|
+    t.uuid "post_id", null: false
+    t.uuid "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id", "user_id"], name: "index_posts_likes_on_post_id_and_user_id", unique: true
+    t.index ["post_id"], name: "index_posts_likes_on_post_id"
+    t.index ["user_id"], name: "index_posts_likes_on_user_id"
   end
 
   create_table "posts_tags", id: false, force: :cascade do |t|
@@ -76,6 +87,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_011240) do
 
   add_foreign_key "posts", "categories"
   add_foreign_key "posts", "users", column: "author_id"
+  add_foreign_key "posts_likes", "posts"
+  add_foreign_key "posts_likes", "users"
   add_foreign_key "posts_tags", "posts"
   add_foreign_key "posts_tags", "tags"
 end
