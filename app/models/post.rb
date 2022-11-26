@@ -5,7 +5,6 @@
 # Table name: posts
 #
 #  id                    :uuid             not null, primary key
-#  content               :text             not null
 #  final_score           :float
 #  flesch_kincaid_score  :float
 #  language_tool_matches :jsonb
@@ -34,9 +33,11 @@ class Post < ApplicationRecord
   before_save :set_scores
   before_save :set_summary
 
+  has_rich_text :content
+
   def set_scores
-    self.flesch_kincaid_score = LanguageService.FleschKincaidScore(content)
-    self.language_tool_matches = LanguageService.LanguageTool(content)[:matches]
+    self.flesch_kincaid_score = LanguageService.FleschKincaidScore(plain_text_content)
+    self.language_tool_matches = LanguageService.LanguageTool(plain_text_content)[:matches]
 
     grammar_score = (100 - (language_tool_matches.length * 10))
     grammar_score = 0 if grammar_score < 0
@@ -46,6 +47,21 @@ class Post < ApplicationRecord
 
   def set_summary
     # first 200 characters of the content
-    self.summary = content[0..200]
+    self.summary = plain_text_content[0..200]
+  end
+
+  def plain_text_content
+    result = content.to_trix_html
+    result = result.gsub(/<action-text-attachment(?:.*?)[^>]*><i(?:.*?)[^>]*><\/i>(.*?)\.(.*?)<\/action-text-attachment>/, "")
+    result = result.tr("\n", " ")
+    result = result.gsub("<br>", "\n" * 2)
+    result = result.gsub("<p>", "")
+    result = result.gsub("</p>", "\n" * 2)
+    result = result.gsub(/\n{3,}/, "\n" * 2)
+    result = result.gsub(/\s{2,}/, " ")
+    result = ActionView::Base.full_sanitizer.sanitize(result)
+    result = result.strip
+    result = result.squeeze(" ")
+    result
   end
 end

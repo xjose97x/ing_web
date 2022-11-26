@@ -11,7 +11,6 @@ class AddBlogTables < ActiveRecord::Migration[7.0]
     create_table :posts, id: :uuid do |t|
       t.references :author, null: true, index: true, type: :uuid, foreign_key: { to_table: :users }
       t.string :title, null: false
-      t.text :content, null: false
       t.text :summary, null: false
       t.references :category, null: false, index: true, foreign_key: true
       t.timestamps

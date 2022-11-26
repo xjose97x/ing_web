@@ -9,6 +9,10 @@ Rails.application.routes.draw do
 
   get "log_out", to: "home#log_out"
 
+  get "blog/new" => "blog#new"
+  get "blog/:id" => "blog#show"
+  post "blog" => "blog#create"
+
   authenticated :user do
     resources :users
   end

@@ -47,7 +47,7 @@
     <% @posts.each do |post| %>
       <tr>
         <th scope="row"><%= post.final_score %></th>
-        <td><a href="#"><%= post.title %></a></td>
+        <td><a href="/blog/<%= post.id %>"><%= post.title %></a></td>
         <td><%= post.summary %></td>
         <td><a href="#"><%= post.author.full_name %></a></td>
         <td><a href="#"><%= post.category.title %></a></td>
