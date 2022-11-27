@@ -18,8 +18,7 @@ Para instalarlo ejecute: `gem install bundler -v 2.2.26`
 
 ### Base de datos
 Se puede crear una base de datos nueva (vacía) con los siguientes comandos:
-* Crear base de datos: `rails db:create`
-* Cargar esquemas: `rails db:schema:load`
+* Crear base de datos: `rails db:setup`
 
 Recuerda ejecutar las migraciones ejecutando `rails db:migrate` 
 

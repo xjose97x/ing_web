@@ -11,7 +11,12 @@ Rails.application.routes.draw do
 
   authenticated :user do
     resources :users
+    get "/blog/new" => "blog#new"
+    post "/blog" => "blog#create"
+    post "/blog/:id/like" => "blog#like_post"
   end
+
+  get "blog/:id" => "blog#show"
 
   authenticate :user, ->(u) { u.is_admin } do
     mount RailsAdmin::Engine => "/admin", as: "rails_admin"

@@ -37,6 +37,8 @@ class User < ApplicationRecord
 
   has_many :posts, foreign_key: :author_id, dependent: :destroy
 
+  has_and_belongs_to_many :liked_posts, class_name: "Post", join_table: :posts_likes
+
   validates :first_name, :last_name, :email, :birth_date, presence: true
   validates :email, uniqueness: true
 
