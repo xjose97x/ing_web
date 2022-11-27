@@ -59,6 +59,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_26_220960) do
     t.string "slug", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["title"], name: "index_categories_on_title", unique: true
+    t.index ["slug"], name: "index_categories_on_slug", unique: true
   end
 
   create_table "posts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -98,6 +100,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_26_220960) do
     t.string "slug", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["title"], name: "index_tags_on_title", unique: true
+    t.index ["slug"], name: "index_tags_on_slug", unique: true
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
