@@ -1,3 +1,5 @@
+<% @btn_class = "btn btn-primary me-1" %>
+
 <%= button_to(
     "Go back",
     root_path,
@@ -60,6 +62,14 @@
 <hr/>
 
 <h3>Content</h3>
+<% if current_user != @post.author %>
+    <%= form_with(url: "/blog/#{@post.id}/like", method: :post, local: true) do |form| %>
+        <% if @post.liked_by.include?(current_user)%>
+            <%= form.submit "Unlike", class: @btn_class %>
+        <% else %>
+            <%= form.submit "Like", class: @btn_class %>
+        <% end %>
+    <% end %>
+<% end %>
 
-<!-- Show post content -->
 <%= @post.content %>

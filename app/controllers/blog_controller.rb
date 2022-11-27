@@ -14,10 +14,22 @@ class BlogController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
-    @post.author = current_user
-    @post.save!
+    post = Post.new(post_params)
+    post.author = current_user
+    post.save!
     redirect_to root_path
+  end
+
+  def like_post
+    post = Post.find(params[:id])
+    
+    if post.liked_by.include?(current_user)
+      post.liked_by.delete(current_user)
+    else
+      post.liked_by << current_user
+    end
+    post.save!
+    redirect_to "/blog/#{post.id}"
   end
 
   private
