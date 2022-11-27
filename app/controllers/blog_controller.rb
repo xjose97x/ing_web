@@ -15,8 +15,7 @@ class BlogController < ApplicationController
 
   def create
     @post = Post.new(post_params)
-    @post.author = User.last
-    @post.summary = "@post.content[0..200]"
+    @post.author = current_user
     @post.save!
     redirect_to root_path
   end

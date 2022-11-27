@@ -1,37 +1,46 @@
-<h1>Hola mundo</h1>
+<!-- variables -->
+<% @btn_class = "btn btn-primary me-1" %>
 
+<h1>Blog</h1>
+
+<div class="d-flex">
 <% if user_signed_in?  %>
   <%= button_to(
-    "Access application",
-    users_path,
-    method: :get
+    "New Post",
+    blog_new_path,
+    method: :get,
+    class:@btn_class
   )%>
   <% if current_user.is_admin %>
     <%= button_to(
       "Access admin panel",
       rails_admin_path,
-      method: :get
+      method: :get,
+      class:@btn_class
     )%>
   <% end %>
 <% else %>
   <%= button_to(
         "Sign in",
         new_user_session_path,
-        method: :get
+        method: :get,
+        class:@btn_class
       ) %>
 
 <%= button_to(
         "Sign up",
         new_user_registration_path,
-        method: :get
+        method: :get,
+        class:@btn_class
       ) %>
 <% end %>
+</div>
 
 <!-- Table for posts -->
 <% @posts.each do |post| %>
 <% end %>
 
-<table class="table table-striped">
+<table class="table table-striped table-bordered">
   <thead>
     <tr>
       <th scope="col">Score</th>

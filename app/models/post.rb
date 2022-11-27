@@ -29,7 +29,7 @@ class Post < ApplicationRecord
   belongs_to :author, class_name: "User"
   belongs_to :category
   has_and_belongs_to_many :tags
-  has_and_belongs_to_many :interacted_users, class_name: "User", join_table: :posts_likes
+  has_and_belongs_to_many :liked_by, class_name: "User", join_table: :posts_likes
   before_save :set_scores
   before_save :set_summary
 
@@ -41,7 +41,7 @@ class Post < ApplicationRecord
 
     grammar_score = (100 - (language_tool_matches.length * 10))
     grammar_score = 0 if grammar_score < 0
-    likes_score = (interacted_users.length * 10)
+    likes_score = (liked_by.length * 10)
     self.final_score = (flesch_kincaid_score * 0.5) + (grammar_score * 0.5) + likes_score
   end
 

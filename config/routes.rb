@@ -9,13 +9,14 @@ Rails.application.routes.draw do
 
   get "log_out", to: "home#log_out"
 
-  get "blog/new" => "blog#new"
-  get "blog/:id" => "blog#show"
-  post "blog" => "blog#create"
 
   authenticated :user do
     resources :users
+    get "/blog/new" => "blog#new"
+    post "/blog" => "blog#create"
   end
+
+  get "blog/:id" => "blog#show"
 
   authenticate :user, ->(u) { u.is_admin } do
     mount RailsAdmin::Engine => "/admin", as: "rails_admin"
