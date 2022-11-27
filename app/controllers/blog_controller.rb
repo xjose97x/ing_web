@@ -22,7 +22,7 @@ class BlogController < ApplicationController
 
   def like_post
     post = Post.find(params[:id])
-    
+
     if post.liked_by.include?(current_user)
       post.liked_by.delete(current_user)
     else
