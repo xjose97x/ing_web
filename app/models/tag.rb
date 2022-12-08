@@ -20,6 +20,14 @@ class Tag < ApplicationRecord
 
   before_save :generate_slug
 
+  def posts_average_score
+    total = 0
+    posts.each do |post|
+      total += post.final_score
+    end
+    total / posts.length
+  end
+
   private
 
     def generate_slug

@@ -18,6 +18,8 @@ Rails.application.routes.draw do
 
   get "blog/:id" => "blog#show"
 
+  get "tags_demo" => "blog#tags_demo"
+
   authenticate :user, ->(u) { u.is_admin } do
     mount RailsAdmin::Engine => "/admin", as: "rails_admin"
   end

@@ -31,3 +31,20 @@ Tag.create!([
               { title: "Tag 4" },
               { title: "Tag 5" },
             ])
+
+
+music_category = Category.find_by(title: "Music")
+tags = Tag.all
+users = User.all
+don_quijote_book = File.readlines("db/don_quijote.txt")
+
+posts = []
+for i in 0..49
+  sample = don_quijote_book.sample(10).join
+  tag = tags[i / 10]
+  posts << { title: "Post #{i}", content: sample, category_id: music_category.id, tags: [tag], author_id: users.sample.id } 
+end
+
+Post.create!(posts)
+
+# Por cada uno de los tags, agrupar los que tienen un score mayor a X y menor a Y

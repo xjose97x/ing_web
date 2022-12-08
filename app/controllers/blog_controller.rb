@@ -32,6 +32,38 @@ class BlogController < ApplicationController
     redirect_to "/blog/#{post.id}"
   end
 
+  def tags_demo
+    min = params[:min].presence
+    max = params[:max].presence
+    tags = Tag.all
+    result = tags.map do |tag|
+      {
+        id: tag.id,
+        title: tag.title,
+        slug: tag.slug,
+        posts_average_score: tag.posts_average_score,
+        posts: tag.posts.map do |post|
+          {
+            id: post.id,
+            title: post.title,
+            summary: post.summary,
+            language_tool_errors_count: post.language_tool_matches.count,
+            flesk_kincaid_score: post.flesch_kincaid_score,
+            final_score: post.final_score,
+          }
+        end
+      }
+    end
+    result = result.sort_by { |tag| -tag[:posts_average_score] }
+    if min.present?
+      result = result.select { |tag| tag[:posts_average_score] >= min.to_f }
+    end
+    if max.present?
+      result = result.select { |tag| tag[:posts_average_score] <= max.to_f }
+    end
+    render json: result
+  end
+
   private
 
     def post_params
